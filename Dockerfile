@@ -1,5 +1,6 @@
-FROM debian:7.8
-MAINTAINER Mike Babineau michael.babineau@gmail.com
+FROM orca.quixey.com/java8
+# forke from MAINTAINER Mike Babineau michael.babineau@gmail.com
+MAINTAINER chris@quixey.com
 
 ENV \
     ZK_RELEASE="http://www.apache.org/dist/zookeeper/zookeeper-3.4.6/zookeeper-3.4.6.tar.gz" \

@@ -1,0 +1,9 @@
+NAME="docker-zk-exhibitor"
+TIMESTAMP=$(/bin/date +%s)
+CONTAINER_NAME="test_${NAME}_image_${TIMESTAMP}"
+IMAGE="orca.quixey.com/${NAME}"
+
+DEFAULT_QENV='dev'
+DEFAULT_LOG_DIR='/var/log/docker/zookeeper'
+: ${QENV:=$DEFAULT_QENV}
+: ${LOG_DIR:=$DEFAULT_LOG_DIR}

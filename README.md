@@ -1,5 +1,12 @@
 Forked from https://github.com/quixey/docker-zk-exhibitor
 
+##### Maintainer's Note
+I probably could have had this container built from the quixey/docker/source-images directory, but I felt it was nicer to fork the repo, and move
+on. So, I have Kirk now build/pushing the container to Orca, independently, even though this container is for use by platforms, and not as part
+of the app... which is a technical violation of our standards. Normally, a 'base' container is re-built every week, as are all of the 
+source-images, but in this case, I'm satisfied to have zk-exh-root be built independently. 
+
+
 ### Versions
 * Exhibitor 1.5.5
 * ZooKeeper 3.4.6

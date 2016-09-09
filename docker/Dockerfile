@@ -12,8 +12,7 @@ ENV \
 # Use one step so we can remove intermediate dependencies and minimize size
 RUN \
     # Install dependencies
-    apt-get update \
-    && apt-get install -y --allow-unauthenticated --no-install-recommends $BUILD_DEPS \
+    apt-get install -y --allow-unauthenticated --no-install-recommends $BUILD_DEPS \
 
     # Default DNS cache TTL is -1. DNS records, like, change, man.
     && grep '^networkaddress.cache.ttl=' /etc/java-7-openjdk/security/java.security || echo 'networkaddress.cache.ttl=60' >> /etc/java-7-openjdk/security/java.security \
@@ -40,7 +39,11 @@ ADD include/wrapper.sh /opt/exhibitor/wrapper.sh
 # Add the optional web.xml for authentication
 ADD include/web.xml /opt/exhibitor/web.xml
 
-USER root
+RUN \
+    useradd -u 2000 -U -m -d /home/quixey -s /bin/bash quixey && \
+    chown -R quixey:quixey /opt
+
+USER quixey
 WORKDIR /opt/exhibitor
 EXPOSE 2181 2888 3888 8181
 

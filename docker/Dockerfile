@@ -1,4 +1,7 @@
-FROM orca.quixey.com/java8
+
+# FROM orca.quixey.com/java8
+FROM debian:7.8
+
 # forke from MAINTAINER Mike Babineau michael.babineau@gmail.com
 MAINTAINER chris@quixey.com
 
@@ -12,7 +15,8 @@ ENV \
 # Use one step so we can remove intermediate dependencies and minimize size
 RUN \
     # Install dependencies
-    apt-get install -y --allow-unauthenticated --no-install-recommends $BUILD_DEPS \
+    apt-get update \
+    && apt-get install -y --allow-unauthenticated --no-install-recommends $BUILD_DEPS \
 
     # Default DNS cache TTL is -1. DNS records, like, change, man.
     && grep '^networkaddress.cache.ttl=' /etc/java-7-openjdk/security/java.security || echo 'networkaddress.cache.ttl=60' >> /etc/java-7-openjdk/security/java.security \

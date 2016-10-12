@@ -12,6 +12,10 @@ ENV \
     BUILD_DEPS="curl maven openjdk-7-jdk+" \
     DEBIAN_FRONTEND="noninteractive"
 
+RUN \
+    useradd -u 2000 -U -m -d /home/quixey -s /bin/bash quixey && \
+    chown -R quixey:quixey /opt
+
 # Use one step so we can remove intermediate dependencies and minimize size
 RUN \
     # Install dependencies
@@ -37,15 +41,14 @@ RUN \
     && apt-get purge -y --auto-remove $BUILD_DEPS \
     && rm -rf /var/lib/apt/lists/*
 
+RUN chown -R quixey:quixey opt
+
 # Add the wrapper script to setup configs and exec exhibitor
 ADD include/wrapper.sh /opt/exhibitor/wrapper.sh
 
 # Add the optional web.xml for authentication
 ADD include/web.xml /opt/exhibitor/web.xml
 
-RUN \
-    useradd -u 2000 -U -m -d /home/quixey -s /bin/bash quixey && \
-    chown -R quixey:quixey /opt
 
 USER quixey
 WORKDIR /opt/exhibitor

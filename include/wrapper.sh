@@ -42,8 +42,14 @@ EOF
 
 
 if [ -z "${CONFIG_TYPE}" ]; then
-	echo "You must specify a configuration type"
-	exit 1
+    if [[ -n {S3_BUCKET} ]]; then
+        CONFIG_TYPE="s3"
+    elif [[ -n {ZK_CONFIG_CONNECT} ]]; then
+        CONFIG_TYPE="zookeeper"
+    else
+	    echo "You must specify a configuration type, or set S3_BUCKET, or set ZK_CONFIG_CONNECT."
+	    exit 1
+	fi
 fi
 
 case ${CONFIG_TYPE} in

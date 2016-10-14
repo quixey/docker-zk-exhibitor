@@ -68,7 +68,6 @@ case ${CONFIG_TYPE} in
 
 		BACKUP_CONFIG="--configtype s3"
 		BACKUP_CONFIG+=" --s3config ${S3_BUCKET}:${S3_PREFIX}"
-		BACKUP_CONFIG+=" --s3credentials /opt/exhibitor/credentials.properties"
 		BACKUP_CONFIG+=" --s3region ${AWS_REGION}"
 		BACKUP_CONFIG+=" --s3backup true"
 	;;

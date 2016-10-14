@@ -52,6 +52,14 @@ if [ -z "${CONFIG_TYPE}" ]; then
 	fi
 fi
 
+if [[ -n ${AWS_ACCESS_KEY_ID} ]]; then
+  cat <<- EOF > /opt/exhibitor/credentials.properties
+    com.netflix.exhibitor.s3.access-key-id=${AWS_ACCESS_KEY_ID}
+    com.netflix.exhibitor.s3.access-secret-key=${AWS_SECRET_ACCESS_KEY}
+EOF
+  S3_SECURITY="--s3credentials /opt/exhibitor/credentials.properties"
+fi
+
 case ${CONFIG_TYPE} in
 	"file")
 		BACKUP_CONFIG="--configtype file"
@@ -69,6 +77,7 @@ case ${CONFIG_TYPE} in
 		BACKUP_CONFIG="--configtype s3"
 		BACKUP_CONFIG+=" --s3config ${S3_BUCKET}:${S3_PREFIX}"
 		BACKUP_CONFIG+=" --s3region ${AWS_REGION}"
+		BACKUP_CONFIG+=" ${S3_SECURITY} "
 		BACKUP_CONFIG+=" --s3backup true"
 	;;
 	"zookeeper")

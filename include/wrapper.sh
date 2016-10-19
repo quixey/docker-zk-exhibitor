@@ -41,10 +41,10 @@ cat <<- EOF > /opt/exhibitor/defaults.conf
 EOF
 
 
-if [ -z "${CONFIG_TYPE}" ]; then
-    if [[ -n {S3_BUCKET} ]]; then
+if [[ ! -v CONFIG_TYPE ]]; then
+    if [[ -v S3_BUCKET ]]; then
         CONFIG_TYPE="s3"
-    elif [[ -n {ZK_CONFIG_CONNECT} ]]; then
+    elif [[ -v ZK_CONFIG_CONNECT ]]; then
         CONFIG_TYPE="zookeeper"
     else
 	    echo "You must specify a configuration type, or set S3_BUCKET, or set ZK_CONFIG_CONNECT."

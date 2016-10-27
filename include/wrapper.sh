@@ -8,6 +8,7 @@ MISSING_VAR_MESSAGE="must be set"
 DEFAULT_AWS_REGION="us-west-1"
 DEFAULT_DATA_DIR="/opt/zookeeper/snapshots"
 DEFAULT_LOG_DIR="/opt/zookeeper/transactions"
+ZK_CONFIG_PATH=${ZK_CONFIG_PATH:-/exhibitor/config}
 ZK_CONFIG_EXHIBITOR_PATH=${ZK_CONFIG_EXHIBITOR_PATH:-/}
 ZK_CONFIG_EXHIBITOR_PORT=${ZK_CONFIG_EXHIBITOR_PORT:-8181}
 S3_SECURITY=""
@@ -85,7 +86,7 @@ case ${CONFIG_TYPE} in
 		BACKUP_CONFIG+=" --zkconfigconnect ${ZK_CONFIG_CONNECT}"
 		BACKUP_CONFIG+=" --zkconfigexhibitorpath ${ZK_CONFIG_EXHIBITOR_PATH}"
 		BACKUP_CONFIG+=" --zkconfigexhibitorport ${ZK_CONFIG_EXHIBITOR_PORT}"
-		BACKUP_CONFIG+=" --zkconfigzpath /exhibitor/config"
+		BACKUP_CONFIG+=" --zkconfigzpath ${ZK_CONFIG_PATH}"
 		BACKUP_CONFIG+=" --filesystembackup true"
 	;;
 	"none")

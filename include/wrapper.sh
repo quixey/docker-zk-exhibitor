@@ -36,18 +36,12 @@ cat <<- EOF > /opt/exhibitor/defaults.conf
 	connect-port=2888
 	observer-threshold=0
 	election-port=3888
+	zoo-cfg-extra=maxClientCnxns\=0&tickTime\=2001&initLimit\=10&syncLimit\=5&quorumListenOnAllIPs\=true
 	auto-manage-instances-settling-period-ms=0
 	auto-manage-instances=1
 EOF
 
-# cr4ppy workaround, as exhibitor doesn't seem to be able to run zoo-cfg-extra correctly.
-cat <<- EOF > /opt/zookeeper/conf/zoo_sample.cfg
-	maxClientCnxns=0
-	tickTime=2001
-	initLimit=10
-	syncLimit=5
-	quorumListenOnAllIPs=true
-EOF
+
 
 chmod 666 /opt/exhibitor/defaults.conf
 
